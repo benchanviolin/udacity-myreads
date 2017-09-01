@@ -5,14 +5,9 @@ import Select from './Select'
 class BookShelfChanger extends React.Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
-    defaultValue: PropTypes.string.isRequired
-  }
-
-  state = {
-
-  }
-  onMoveBookToAnotherShelf = (shelf) => {
-    alert(shelf);
+    defaultValue: PropTypes.string.isRequired,
+    book: PropTypes.object.isRequired,
+    moveBookToAnotherShelf: PropTypes.func
   }
 
   render() {
@@ -21,7 +16,8 @@ class BookShelfChanger extends React.Component {
         <Select
           options={this.props.options}
           defaultValue={this.props.defaultValue}
-          onChangeValue={this.onMoveBookToAnotherShelf}
+          onChangeValue={this.props.moveBookToAnotherShelf}
+          parentEntity={this.props.book}
         />
       </div>
     )

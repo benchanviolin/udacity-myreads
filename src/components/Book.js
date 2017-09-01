@@ -9,6 +9,8 @@ class Book extends React.Component {
 
   static propTypes = {
     shelf: PropTypes.string,
+    book: PropTypes.object,
+    moveBookToAnotherShelf: PropTypes.func,
     options: PropTypes.array,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -33,6 +35,8 @@ class Book extends React.Component {
             <BookShelfChanger
               options={this.props.options}
               defaultValue={this.props.shelf}
+              book={this.props.book}
+              moveBookToAnotherShelf={this.props.moveBookToAnotherShelf}
             />
             : ''
           }

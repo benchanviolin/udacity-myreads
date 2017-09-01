@@ -9,7 +9,8 @@ class Shelf extends React.Component {
     bookHeight: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     books: PropTypes.array,
-    options: PropTypes.array
+    options: PropTypes.array,
+    moveBookToAnotherShelf: PropTypes.func
   }
 
   render() {
@@ -23,6 +24,7 @@ class Shelf extends React.Component {
                 <li key={key}>
                   <Book
                     shelf={this.props.id}
+                    book={data}
                     options={this.props.options}
                     width={this.props.bookWidth}
                     height={this.props.bookHeight}
@@ -30,6 +32,7 @@ class Shelf extends React.Component {
                     title={data.title}
                     author={data.authors.join(', ')}
                     thumbnail={data.imageLinks.thumbnail}
+                    moveBookToAnotherShelf={this.props.moveBookToAnotherShelf}
                   />
                 </li>
               )) : ''

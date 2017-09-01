@@ -12,16 +12,7 @@ class ListBooks extends React.Component {
   }
 
   state = {
-    books: []
-  }
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  }
-
-  render() {
-    const options = [
+    options: [
       {
         value: 'none',
         disabled: true,
@@ -29,27 +20,51 @@ class ListBooks extends React.Component {
       },
       {
         value: 'currentlyReading',
-        label: 'Currently Reading',
-        isShelf: true
+        label: 'Currently Reading'
       },
       {
         value: 'wantToRead',
-        label: 'Want to Read',
-        isShelf: true
+        label: 'Want to Read'
       },
       {
         value: 'read',
-        label: 'Read',
-        isShelf: true
+        label: 'Read'
       },
       {
         value: 'none',
         label: 'None'
       }
-    ];
+    ],
+    shelves: [
+      {
+        value: 'currentlyReading',
+        label: 'Currently Reading'
+      },
+      {
+        value: 'wantToRead',
+        label: 'Want to Read'
+      },
+      {
+        value: 'read',
+        label: 'Read'
+      }
+    ],
+    books: []
+  }
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+  }
+  moveBookToAnotherShelf = (book, shelf) => {
+    const oldShelf = book.shelf;
+    BooksAPI.update(book, shelf).then((books) => {
+      console.log(oldShelf);
 
-    const shelves = options.filter(option => option.hasOwnProperty('isShelf') && option.isShelf === true);
+    })
+  }
 
+  render() {
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -57,7 +72,7 @@ class ListBooks extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            {shelves.map((shelf, key) => (
+            {this.state.shelves.map((shelf, key) => (
               <Shelf
                 key={key}
                 id={shelf.value}
@@ -65,7 +80,8 @@ class ListBooks extends React.Component {
                 bookHeight={this.props.bookHeight}
                 title={shelf.label}
                 books={this.state.books.filter(book => book.shelf === shelf.value)}
-                options={options}
+                options={this.state.options}
+                moveBookToAnotherShelf={this.moveBookToAnotherShelf}
               />
           ))}
           </div>

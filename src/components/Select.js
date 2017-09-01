@@ -5,15 +5,16 @@ class Select extends React.Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    onChangeValue: PropTypes.func
+    onChangeValue: PropTypes.func,
+    parentEntity: PropTypes.object
   }
 
   state = {
 
   }
   onChangeValue = (event) => {
-    if (this.props.onChangeValue) {
-      this.props.onChangeValue(event.target.value);
+    if (this.props.onChangeValue && this.props.parentEntity && event && event.target && event.target.value) {
+      this.props.onChangeValue(this.props.parentEntity, event.target.value);
     }
   }
   render() {
