@@ -1,25 +1,36 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
 class BookShelf extends React.Component {
   static propTypes = {
-
+    title: PropTypes.string.isRequired,
+    books: PropTypes.array,
+    options: PropTypes.array
   }
+
   state = {
-    books: []
+    title: '',
+    books: [],
+    options: []
   }
 
   render() {
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
+        <h2 className="bookshelf-title">{this.props.title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            <li>
-              <Book
-              />
-            </li>
+            {this.props.books && this.props.books.length > 0 ?
+              this.props.books.map((data) => (
+                <li>
+                  <Book
+                    options={this.props.options}
+                    data={data}
+                  />
+                </li>
+              )) : ''
+            }
             <li>
               <div className="book">
                 <div className="book-top">

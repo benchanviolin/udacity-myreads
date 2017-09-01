@@ -10,7 +10,30 @@ class ListBooks extends React.Component {
   }
 
   state = {
-    books: []
+    books: [],
+    options: [
+      {
+        value: 'none',
+        disabled: true,
+        label: 'Move to...'
+      },
+      {
+        value: 'currentlyReading',
+        label: 'Currently Reading'
+      },
+      {
+        value: 'wantToRead',
+        label: 'Want to Read'
+      },
+      {
+        value: 'read',
+        label: 'Read'
+      },
+      {
+        value: 'none',
+        label: 'None'
+      }
+    ]
   }
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
@@ -27,6 +50,9 @@ class ListBooks extends React.Component {
         <div className="list-books-content">
           <div>
             <BookShelf
+              title="Currently Reading (dynamic)"
+              books={this.state.books}
+              options={this.state.options}
             />
             <div className="bookshelf">
               <h2 className="bookshelf-title">Want to Read</h2>

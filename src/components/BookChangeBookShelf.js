@@ -15,8 +15,9 @@ class BookChangeBookShelf extends React.Component {
     return (
       <div className="book-shelf-changer">
         <select>
-          {options.map((option) => (
+          {options.map((option, key) => (
             <option
+              key={key}
               value={option.value}
               disabled={option.hasOwnProperty('disabled') && option.disabled === true?'disabled':''}
             >{option.label}</option>
