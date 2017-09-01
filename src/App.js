@@ -52,8 +52,9 @@ class BooksApp extends React.Component {
       this.setState({ books })
     })
   }
-  moveBookToAnotherShelf = (book, shelf) => {    
+  moveBookToAnotherShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then(() => {
+      /* I understand this method of refreshing the entire books data set can be slow in much bigger libraries.  But I think this is the second-best approach to handle concurrent users without the use of web sockets. */
       BooksAPI.getAll().then((books) => {
         this.setState({ books })
       })
