@@ -11,21 +11,27 @@ class BookShelf extends React.Component {
 
   state = {
     title: '',
+    style: {
+      width: 128,
+      height: 192
+    },
     books: [],
     options: []
   }
+  onM
 
   render() {
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.title}</h2>
+        <h2 className="bookshelf-title">{this.state.title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.props.books && this.props.books.length > 0 ?
-              this.props.books.map((data) => (
+            {this.state.books && this.state.books.length > 0 ?
+              this.state.books.map((data) => (
                 <li>
                   <Book
-                    options={this.props.options}
+                    style={this.state.style}
+                    options={this.state.options}
                     data={data}
                   />
                 </li>
