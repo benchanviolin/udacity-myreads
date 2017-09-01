@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 class ListBooks extends React.Component {
   static propTypes = {
 
-  };
+  }
 
   state = {
 
-  };
+  }
 
   render() {
     return (
@@ -174,7 +174,7 @@ class ListBooks extends React.Component {
           >Add a book</Link>
         </div>
       </div>
-    );
+    )
   }
 }
 

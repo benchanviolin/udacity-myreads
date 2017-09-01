@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 class SearchBooks extends React.Component {
   static propTypes = {
 
-  };
+  }
 
   state = {
 
-  };
+  }
 
   render() {
     return (
       <div className="search-books">
-        <div className="search-books-bar">          
+        <div className="search-books-bar">
           <Link
             to='/'
             className='close-search'
@@ -36,7 +36,7 @@ class SearchBooks extends React.Component {
           <ol className="books-grid"></ol>
         </div>
       </div>
-    );
+    )
   }
 }
 
