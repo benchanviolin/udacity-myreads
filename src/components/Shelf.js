@@ -5,35 +5,29 @@ import BookShelfChanger from './BookShelfChanger'
 
 class Shelf extends React.Component {
   static propTypes = {
+    bookWidth: PropTypes.number.isRequired,
+    bookHeight: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     books: PropTypes.array,
     options: PropTypes.array
   }
 
-  state = {
-    title: '',
-    style: {
-      width: 128,
-      height: 192
-    },
-    books: [],
-    options: []
-  }
-  onM
-
   render() {
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.state.title}</h2>
+        <h2 className="bookshelf-title">{this.props.title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.state.books && this.state.books.length > 0 ?
-              this.state.books.map((data) => (
-                <li>
+            {this.props.books && this.props.books.length > 0 ?
+              this.props.books.map((data, key) => (
+                <li key={key}>
                   <Book
-                    style={this.state.style}
-                    options={this.state.options}
-                    data={data}
+                    width={this.props.bookWidth}
+                    height={this.props.bookHeight}
+                    id={data.id}
+                    title={data.title}
+                    author={data.authors.join(', ')}
+                    thumbnail={data.imageLinks.thumbnail}
                   />
                   <BookShelfChanger
                     options={this.props.options}

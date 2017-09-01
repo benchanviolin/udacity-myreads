@@ -7,9 +7,12 @@ class Book extends React.Component {
   */
 
   static propTypes = {
-    style: PropTypes.object.isRequired,
-    data: PropTypes.object.isRequired,
-    options: PropTypes.array.isRequired
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // allows this component to be more easily reused since we don't know what the context will be
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired
   }
 
   render() {
@@ -18,14 +21,14 @@ class Book extends React.Component {
         <div className="book-top">
           <div className="book-cover" style={
             {
-              width: this.props.style.width,
-              height: this.props.style.height,
-              backgroundImage: 'url("' + this.props.data.imageLinks.thumbnail + '")'
+              width: this.props.width,
+              height: this.props.height,
+              backgroundImage: 'url("' + this.props.thumbnail + '")'
             }
-          }></div>          
+          }></div>
         </div>
-        <div className="book-title">To Kill a Mockingbird</div>
-        <div className="book-authors">Harper Lee</div>
+        <div className="book-title">{this.props.title}</div>
+        <div className="book-authors">{this.props.author}</div>
       </div>
     )
   }

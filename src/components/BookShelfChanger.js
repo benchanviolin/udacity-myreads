@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Select from './Select'
 
 class BookShelfChanger extends React.Component {
   static propTypes = {
@@ -14,15 +15,9 @@ class BookShelfChanger extends React.Component {
 
     return (
       <div className="book-shelf-changer">
-        <select>
-          {options.map((option, key) => (
-            <option
-              key={key}
-              value={option.value}
-              disabled={option.hasOwnProperty('disabled') && option.disabled === true?'disabled':''}
-            >{option.label}</option>
-          ))}
-        </select>
+        <Select
+          options={ options }
+        />
       </div>
     )
   }

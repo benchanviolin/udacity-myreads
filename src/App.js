@@ -11,11 +11,16 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const style = {
+      bookWidth: 128,
+      bookHeight: 192
+    }
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <ListBooks
-
+            bookWidth={style.bookWidth}
+            bookHeight={style.bookHeight}
           />
         )}/>
       <Route path='/search-books' render={() => (

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './utils/BooksAPI'
 import Shelf from './components/Shelf'
 
 class ListBooks extends React.Component {
   static propTypes = {
-
+    bookWidth: PropTypes.number.isRequired,
+    bookHeight: PropTypes.number.isRequired
   }
 
   state = {
@@ -50,6 +51,8 @@ class ListBooks extends React.Component {
         <div className="list-books-content">
           <div>
             <Shelf
+              bookWidth={this.props.bookWidth}
+              bookHeight={this.props.bookHeight}
               title="Currently Reading (dynamic)"
               books={this.state.books}
               options={this.state.options}
