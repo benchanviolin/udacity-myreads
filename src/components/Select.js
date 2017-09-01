@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 class Select extends React.Component {
   static propTypes = {
-    options: PropTypes.array.isRequired
+    options: PropTypes.array.isRequired,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
   }
 
   state = {
@@ -13,7 +14,7 @@ class Select extends React.Component {
     const { options } = this.props;
 
     return (
-      <select>
+      <select defaultValue={this.props.defaultValue}>
         {options.map((option, key) => (
           <option
             key={key}

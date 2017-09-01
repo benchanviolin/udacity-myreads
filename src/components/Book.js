@@ -31,7 +31,8 @@ class Book extends React.Component {
           }></div>
         {this.props.shelf && this.props.shelf !== '' && this.props.options && this.props.options.length > 0 ?
             <BookShelfChanger
-              options={this.props.options.filter(option => option.value !== this.props.shelf)}
+              options={this.props.options}
+              defaultValue={this.props.shelf}
             />
             : ''
           }

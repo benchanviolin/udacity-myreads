@@ -4,19 +4,19 @@ import Select from './Select'
 
 class BookShelfChanger extends React.Component {
   static propTypes = {
-    options: PropTypes.array.isRequired
+    options: PropTypes.array.isRequired,
+    defaultValue: PropTypes.string.isRequired
   }
 
   state = {
 
   }
   render() {
-    const { options } = this.props;
-
     return (
       <div className="book-shelf-changer">
         <Select
-          options={ options }
+          options={this.props.options}
+          defaultValue={this.props.defaultValue}
         />
       </div>
     )
