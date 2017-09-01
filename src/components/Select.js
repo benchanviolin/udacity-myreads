@@ -5,22 +5,22 @@ class Select extends React.Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    changedValueHandler: PropTypes.func
+    onChangeValue: PropTypes.func
   }
 
   state = {
 
   }
-  onChangeHandler = (event) => {
-    if (this.props.hasOwnProperty('changedValueHandler')) {
-      this.props.changedValueHandler(event.target.value);
+  onChangeValue = (event) => {
+    if (this.props.onChangeValue) {
+      this.props.onChangeValue(event.target.value);
     }
   }
   render() {
     const { options } = this.props;
 
     return (
-      <select defaultValue={this.props.defaultValue} onChange={this.onChangeHandler}>
+      <select defaultValue={this.props.defaultValue} onChange={this.onChangeValue}>
         {options.map((option, key) => (
           <option
             key={key}

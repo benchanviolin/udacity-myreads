@@ -11,7 +11,7 @@ class BookShelfChanger extends React.Component {
   state = {
 
   }
-  moveBookToAnotherShelf = (shelf) => {
+  onMoveBookToAnotherShelf = (shelf) => {
     alert(shelf);
   }
 
@@ -21,7 +21,7 @@ class BookShelfChanger extends React.Component {
         <Select
           options={this.props.options}
           defaultValue={this.props.defaultValue}
-          changedValueHandler={this.moveBookToAnotherShelf}
+          onChangeValue={this.onMoveBookToAnotherShelf}
         />
       </div>
     )

@@ -7,7 +7,8 @@ import Shelf from './components/Shelf'
 class ListBooks extends React.Component {
   static propTypes = {
     bookWidth: PropTypes.number.isRequired,
-    bookHeight: PropTypes.number.isRequired
+    bookHeight: PropTypes.number.isRequired,
+    onMoveBookToAnotherShelf: PropTypes.func
   }
 
   state = {
