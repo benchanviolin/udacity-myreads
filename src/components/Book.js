@@ -8,6 +8,7 @@ class Book extends React.Component {
   */
 
   static propTypes = {
+    shelf: PropTypes.string,
     options: PropTypes.array,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -28,9 +29,9 @@ class Book extends React.Component {
               backgroundImage: 'url("' + this.props.thumbnail + '")'
             }
           }></div>
-          {this.props.options && this.props.options.length > 0 ?
+        {this.props.shelf && this.props.shelf !== '' && this.props.options && this.props.options.length > 0 ?
             <BookShelfChanger
-              options={this.props.options}
+              options={this.props.options.filter(option => option.value !== this.props.shelf)}
             />
             : ''
           }

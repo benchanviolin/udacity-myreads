@@ -22,13 +22,14 @@ class Shelf extends React.Component {
               this.props.books.map((data, key) => (
                 <li key={key}>
                   <Book
+                    shelf={this.props.id}
+                    options={this.props.options}
                     width={this.props.bookWidth}
                     height={this.props.bookHeight}
                     id={data.id}
                     title={data.title}
                     author={data.authors.join(', ')}
                     thumbnail={data.imageLinks.thumbnail}
-                    options={this.props.options}
                   />
                 </li>
               )) : ''
