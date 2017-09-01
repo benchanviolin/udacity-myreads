@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import BookShelfChanger from './BookShelfChanger'
 
 class Book extends React.Component {
   /*
@@ -7,6 +8,7 @@ class Book extends React.Component {
   */
 
   static propTypes = {
+    options: PropTypes.array,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // allows this component to be more easily reused since we don't know what the context will be
@@ -26,6 +28,12 @@ class Book extends React.Component {
               backgroundImage: 'url("' + this.props.thumbnail + '")'
             }
           }></div>
+          {this.props.options && this.props.options.length > 0 ?
+            <BookShelfChanger
+              options={this.props.options}
+            />
+            : ''
+          }
         </div>
         <div className="book-title">{this.props.title}</div>
         <div className="book-authors">{this.props.author}</div>

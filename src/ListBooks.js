@@ -63,7 +63,7 @@ class ListBooks extends React.Component {
                 bookWidth={this.props.bookWidth}
                 bookHeight={this.props.bookHeight}
                 title={shelf.label}
-                books={this.state.books.filter(book => book.shelf == shelf.value)}
+                books={this.state.books.filter(book => book.shelf === shelf.value)}
                 options={options}
               />
           ))}

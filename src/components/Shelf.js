@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
-import BookShelfChanger from './BookShelfChanger'
 
 class Shelf extends React.Component {
   static propTypes = {
@@ -29,8 +28,6 @@ class Shelf extends React.Component {
                     title={data.title}
                     author={data.authors.join(', ')}
                     thumbnail={data.imageLinks.thumbnail}
-                  />
-                  <BookShelfChanger
                     options={this.props.options}
                   />
                 </li>
