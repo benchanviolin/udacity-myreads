@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import BookChangeBookShelf from './BookChangeBookShelf'
 
 class Book extends React.Component {
   /*
@@ -23,10 +22,7 @@ class Book extends React.Component {
               height: this.props.style.height,
               backgroundImage: 'url("' + this.props.data.imageLinks.thumbnail + '")'
             }
-          }></div>
-          <BookChangeBookShelf
-            options={this.props.options}
-          />
+          }></div>          
         </div>
         <div className="book-title">To Kill a Mockingbird</div>
         <div className="book-authors">Harper Lee</div>

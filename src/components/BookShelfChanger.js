@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class BookChangeBookShelf extends React.Component {
+class BookShelfChanger extends React.Component {
   static propTypes = {
     options: PropTypes.array.isRequired
   }
@@ -28,4 +28,4 @@ class BookChangeBookShelf extends React.Component {
   }
 }
 
-export default BookChangeBookShelf
+export default BookShelfChanger

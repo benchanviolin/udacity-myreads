@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
+import BookShelfChanger from './BookShelfChanger'
 
-class BookShelf extends React.Component {
+class Shelf extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array,
@@ -34,6 +35,9 @@ class BookShelf extends React.Component {
                     options={this.state.options}
                     data={data}
                   />
+                  <BookShelfChanger
+                    options={this.props.options}
+                  />
                 </li>
               )) : ''
             }
@@ -62,4 +66,4 @@ class BookShelf extends React.Component {
   }
 }
 
-export default BookShelf
+export default Shelf

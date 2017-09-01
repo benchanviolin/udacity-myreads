@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 //import PropTypes from 'prop-types'
 import * as BooksAPI from './utils/BooksAPI'
-import BookShelf from './components/BookShelf'
+import Shelf from './components/Shelf'
 
 class ListBooks extends React.Component {
   static propTypes = {
@@ -49,7 +49,7 @@ class ListBooks extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf
+            <Shelf
               title="Currently Reading (dynamic)"
               books={this.state.books}
               options={this.state.options}
