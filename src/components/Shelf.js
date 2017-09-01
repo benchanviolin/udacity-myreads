@@ -5,6 +5,7 @@ import BookShelfChanger from './BookShelfChanger'
 
 class Shelf extends React.Component {
   static propTypes = {
+    id: PropTypes.string.isRequired,
     bookWidth: PropTypes.number.isRequired,
     bookHeight: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
