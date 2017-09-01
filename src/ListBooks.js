@@ -47,7 +47,7 @@ class ListBooks extends React.Component {
       }
     ];
 
-    const shelves = options.filter((option) => option.hasOwnProperty('isShelf') && option.isShelf === true);
+    const shelves = options.filter(option => option.hasOwnProperty('isShelf') && option.isShelf === true);
 
     return (
       <div className="list-books">
@@ -58,11 +58,12 @@ class ListBooks extends React.Component {
           <div>
             {shelves.map((shelf, key) => (
               <Shelf
-                id={key}
+                key={key}
+                id={shelf.value}
                 bookWidth={this.props.bookWidth}
                 bookHeight={this.props.bookHeight}
                 title={shelf.label}
-                books={this.state.books}
+                books={this.state.books.filter(book => book.shelf == shelf.value)}
                 options={options}
               />
           ))}
