@@ -55,6 +55,7 @@ class BooksApp extends React.Component {
   moveBookToAnotherShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((shelves) => {
       /* ASSUMPTION: Only one user uses this application at a time.  With concurrent users I would consider web sockets or else refreshing the entire data set after each change just to be sure the data doesn't get stale */
+      // invert the keys returned by BooksAPI.update() so that they can be applied to the prior state.books values by book.id
       let bookUpdates = {};
       for(const [shelfId, bookIds] of Object.entries(shelves)) {
         for(const bookId of bookIds) {
