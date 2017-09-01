@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-//import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
+//import PropTypes from 'prop-types'
+import * as BooksAPI from './utils/BooksAPI'
 
 class ListBooks extends React.Component {
   static propTypes = {
@@ -8,7 +9,12 @@ class ListBooks extends React.Component {
   }
 
   state = {
-
+    books: []
+  }
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
   }
 
   render() {
