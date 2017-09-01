@@ -53,10 +53,23 @@ class BooksApp extends React.Component {
     })
   }
   moveBookToAnotherShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(() => {
-      /* I understand this method of refreshing the entire books data set can be slow in much bigger libraries.  But I think this is the second-best approach to handle concurrent users without the use of web sockets. */
-      BooksAPI.getAll().then((books) => {
-        this.setState({ books })
+    BooksAPI.update(book, shelf).then((shelves) => {
+      /* ASSUMPTION: Only one user uses this application at a time.  With concurrent users I would consider web sockets or else refreshing the entire data set after each change just to be sure the data doesn't get stale */
+      let bookUpdates = {};
+      for(const [shelfId, bookIds] of Object.entries(shelves)) {
+        for(const bookId of bookIds) {
+          bookUpdates[bookId] = shelfId;
+        }
+      }
+      this.setState(state => {
+        /* HELP! Can you please explain a way to refactor the code below?  I'm still fairly new to ES6 so I struggled with conciseness.  Thank you! */
+        state.books = state.books.map(book => {
+          if (bookUpdates.hasOwnProperty(book.id)) {
+            book.shelf = bookUpdates[book.id];
+          }
+          return book;
+        })
+        return state;
       })
     })
   }
