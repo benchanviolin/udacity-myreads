@@ -11,12 +11,17 @@ class BookShelfChanger extends React.Component {
   state = {
 
   }
+  moveBookToAnotherShelf = (shelf) => {
+    alert(shelf);
+  }
+
   render() {
     return (
       <div className="book-shelf-changer">
         <Select
           options={this.props.options}
           defaultValue={this.props.defaultValue}
+          changedValueHandler={this.moveBookToAnotherShelf}
         />
       </div>
     )
