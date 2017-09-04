@@ -90,9 +90,7 @@ class BooksApp extends React.Component {
     });
   }
   findBooksByQuery = (query, callback) => {
-    console.log('query: ' + query);
     BooksAPI.search(query, 20).then((res) => {
-      console.log(res);
       let books = [];
       if (!res.hasOwnProperty('error')){
         books = res;
