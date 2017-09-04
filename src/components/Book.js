@@ -21,6 +21,9 @@ class Book extends React.Component {
     authors: PropTypes.array,
     imageLinks: PropTypes.object
   }
+  showMessage = message => {
+    alert(message);
+  }
 
   render() {
     return (
@@ -42,11 +45,11 @@ class Book extends React.Component {
             />
           )}
           {this.props.showBookAlreadyOnShelf && !this.props.showShelfChanger && (
-            <div className="book-already-on-shelf" />
+            <a className="book-already-on-shelf" title={this.props.shelf} onClick={(shelf) => {this.showMessage(this.props.shelf)}}></a>
           )}
         </div>
         <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.authors?this.props.authors.join(', '):''}</div>
+        <div className="book-authors">{this.props.authors?this.props.authors.join(', '):'Unknown'}</div>
       </div>
     )
   }

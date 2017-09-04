@@ -45,6 +45,12 @@ class SearchBooks extends React.Component {
     });
     return (findBookById.length > 0);
   }
+  getBookShelf = (matches) => {
+    if (matches.length > 0) {
+      return matches[0].shelf;
+    }
+    return 'none';
+  }
 
   render() {
     return (
@@ -73,7 +79,7 @@ class SearchBooks extends React.Component {
         </div>
         <div className="search-books-results">
           {this.state.isSearchInProgress && (
-            <div>Searching...</div>            
+            <div>Searching...</div>
           )}
           <ol className="books-grid">
             {this.props.booksByQuery.length > 0 ?
@@ -83,7 +89,7 @@ class SearchBooks extends React.Component {
                     key={key}
                     showShelfChanger={!this.isBookAlreadyOnShelf(data)}
                     showBookAlreadyOnShelf={true}
-                    shelf="none"
+                    shelf={this.getBookShelf(this.props.books.filter(b => b.id === data.id))}
                     book={data}
                     options={this.props.options}
                     width={this.props.bookWidth}
