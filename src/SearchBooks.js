@@ -20,14 +20,23 @@ class SearchBooks extends React.Component {
   }
 
   state = {
-    query: ''
+    query: '',
+    isSearchInProgress: false
   }
   updateQuery = query => {
-    this.setState({ query: query.trim() }, () => {
+    this.setState({
+      query: query.trim(),
+      isSearchInProgress: true
+    }, () => {
       if (this.hasOwnProperty('waitBeforeSearchID')) {
         clearInterval(this.waitBeforeSearchID);
       }
-      this.waitBeforeSearchID = setTimeout(() => this.props.findBooksByQuery(this.state.query), 500);
+      this.waitBeforeSearchID = setTimeout(() => this.props.findBooksByQuery(this.state.query, this.clearSearchProgress), 500);
+    });
+  }
+  clearSearchProgress = () => {
+    this.setState({
+      isSearchInProgress: false
     });
   }
   isBookAlreadyOnShelf = book => {
@@ -63,6 +72,9 @@ class SearchBooks extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
+          {this.state.isSearchInProgress && (
+            <div>Searching...</div>            
+          )}
           <ol className="books-grid">
             {this.props.booksByQuery.length > 0 ?
               this.props.booksByQuery.map((data, key) => (

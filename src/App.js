@@ -89,15 +89,15 @@ class BooksApp extends React.Component {
       }))
     });
   }
-  findBooksByQuery = query => {
+  findBooksByQuery = (query, callback) => {
     console.log('query: ' + query);
     BooksAPI.search(query, 20).then((res) => {
       console.log(res);
-      if (res.hasOwnProperty('error')){
-        this.setState({ booksByQuery: [] })
-      } else {
-        this.setState({ booksByQuery: res })
+      let books = [];
+      if (!res.hasOwnProperty('error')){
+        books = res;
       }
+      this.setState({ booksByQuery: books }, callback);
     });
   }
   addBookToShelf = (book, shelf) => {

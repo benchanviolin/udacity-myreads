@@ -4,6 +4,8 @@
 ========
 - Adding a book from the search results marks it with a checkmark icon to indicate that the book has been added to the shelf.
 - If no search results are found, a list of all supported search terms is shown for convenience.
+- Search only triggers after 0.5 seconds of not typing to minimize API calls.
+- Search indicator is shown when search is about to be performed.
 
 # MyReads Project
 
