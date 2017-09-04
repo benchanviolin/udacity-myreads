@@ -9,6 +9,7 @@ import ListBooks from './ListBooks'
 class BooksApp extends React.Component {
   state = {
     books: [],
+    booksByQuery: [],
     options: [
       {
         value: 'none',
@@ -74,6 +75,14 @@ class BooksApp extends React.Component {
       })
     })
   }
+  findBooksByQuery = query => {
+    BooksAPI.search(query, 20).then((booksByQuery) => {
+      this.setState({ booksByQuery })
+    })
+  }
+  addBookToShelf = (book, shelf) => {
+
+  }
 
   render() {
     const style = {
@@ -94,7 +103,12 @@ class BooksApp extends React.Component {
         )}/>
       <Route path='/search-books' render={() => (
           <SearchBooks
-
+            booksByQuery={this.state.booksByQuery}
+            options={this.state.options}
+            bookWidth={style.bookWidth}
+            bookHeight={style.bookHeight}
+            findBooksByQuery={this.findBooksByQuery}
+            addBookToShelf={this.addBookToShelf}
           />
         )}/>
       </div>

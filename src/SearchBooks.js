@@ -1,15 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
+import Shelf from './components/Shelf'
 
 class SearchBooks extends React.Component {
   static propTypes = {
+    booksByQuery: PropTypes.array.isRequired,
+    options: PropTypes.array.isRequired,
+    bookWidth: PropTypes.number.isRequired,
+    bookHeight: PropTypes.number.isRequired,
+    findBooksByQuery: PropTypes.func.isRequired,
+    addBookToShelf: PropTypes.func.isRequired
+  }
+
+  doesBookMatchQuery = book => {
 
   }
-  state = {
-    books: []
-  }
-
   render() {
     return (
       <div className="search-books">
@@ -27,12 +33,26 @@ class SearchBooks extends React.Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              
+            />
 
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            <Shelf
+              id="searchResults"
+              bookWidth={this.props.bookWidth}
+              bookHeight={this.props.bookHeight}
+              title="Search Results"
+              books={this.props.booksByQuery.filter(book => this.doesBookMatchQuery(book))}
+              options={this.props.options}
+              addBookToShelf={this.props.addBookToShelf}
+            />
+          </ol>
         </div>
       </div>
     )
