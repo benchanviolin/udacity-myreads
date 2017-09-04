@@ -74,8 +74,19 @@ class BooksApp extends React.Component {
     })
   }
   moveBookToAnotherShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((shelves) => {
-      this.reorganizeBooksByShelves(shelves);
+    if (shelf === 'none') {
+      this.removeBook(book);
+    } else {
+      BooksAPI.update(book, shelf).then((shelves) => {
+        this.reorganizeBooksByShelves(shelves);
+      });
+    }
+  }
+  removeBook = book => {
+    BooksAPI.update(book, 'none').then((shelves) => {
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id)
+      }))
     });
   }
   findBooksByQuery = query => {
