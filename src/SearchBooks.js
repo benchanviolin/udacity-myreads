@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Shelf from './components/Shelf'
+import Book from './components/Book'
 
 class SearchBooks extends React.Component {
   static propTypes = {
@@ -13,9 +13,17 @@ class SearchBooks extends React.Component {
     addBookToShelf: PropTypes.func.isRequired
   }
 
-  doesBookMatchQuery = book => {
-
+  state = {
+    query: ''
   }
+  updateQuery = (query) => {
+    if (this.hasOwnProperty('waitBeforeSearchID')) {
+      clearInterval(this.waitBeforeSearchID);
+    }
+    this.setState({ query: query.trim() });
+    this.waitBeforeSearchID = setTimeout(() => this.props.findBooksByQuery(this.state.query), 500);
+  }
+
   render() {
     return (
       <div className="search-books">
@@ -36,22 +44,32 @@ class SearchBooks extends React.Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              
+              onChange={(event) => this.updateQuery(event.target.value)}
             />
 
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Shelf
-              id="searchResults"
-              bookWidth={this.props.bookWidth}
-              bookHeight={this.props.bookHeight}
-              title="Search Results"
-              books={this.props.booksByQuery.filter(book => this.doesBookMatchQuery(book))}
-              options={this.props.options}
-              addBookToShelf={this.props.addBookToShelf}
-            />
+            {this.props.booksByQuery && this.props.booksByQuery.length > 0 ?
+              this.props.booksByQuery.map((data, key) => (
+                <li key={key}>
+                  <Book
+                    key={key}
+                    shelf="none"
+                    book={data}
+                    options={this.props.options}
+                    width={this.props.bookWidth}
+                    height={this.props.bookHeight}
+                    id={data.id}
+                    title={data.title}
+                    author={data.authors.join(', ')}
+                    thumbnail={data.imageLinks.thumbnail}
+                    moveBookToAnotherShelf={this.props.addBookToShelf}
+                  />
+                </li>
+              )) : ''
+            }
           </ol>
         </div>
       </div>
