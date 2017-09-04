@@ -16,7 +16,7 @@ class Book extends React.Component {
     height: PropTypes.number.isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // allows this component to be more easily reused since we don't know what the context will be
     title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    authors: PropTypes.array,
     thumbnail: PropTypes.string.isRequired
   }
 
@@ -42,7 +42,7 @@ class Book extends React.Component {
           }
         </div>
         <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.author}</div>
+        <div className="book-authors">{this.props.authors?this.props.authors.join(', '):''}</div>
       </div>
     )
   }

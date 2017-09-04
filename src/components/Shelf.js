@@ -30,7 +30,7 @@ class Shelf extends React.Component {
                     height={this.props.bookHeight}
                     id={data.id}
                     title={data.title}
-                    author={data.authors.join(', ')}
+                    authors={data.authors}
                     thumbnail={data.imageLinks.thumbnail}
                     moveBookToAnotherShelf={this.props.moveBookToAnotherShelf}
                   />
