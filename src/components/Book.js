@@ -17,7 +17,7 @@ class Book extends React.Component {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // allows this component to be more easily reused since we don't know what the context will be
     title: PropTypes.string.isRequired,
     authors: PropTypes.array,
-    thumbnail: PropTypes.string.isRequired
+    imageLinks: PropTypes.object
   }
 
   render() {
@@ -28,10 +28,10 @@ class Book extends React.Component {
             {
               width: this.props.width,
               height: this.props.height,
-              backgroundImage: 'url("' + this.props.thumbnail + '")'
+              backgroundImage: this.props.imageLinks && this.props.imageLinks.hasOwnProperty('thumbnail') ? 'url("' + this.props.imageLinks.thumbnail + '")' : ''
             }
           }></div>
-        {this.props.shelf && this.props.shelf !== '' && this.props.options && this.props.options.length > 0 ?
+          {this.props.shelf && this.props.shelf !== '' && this.props.options && this.props.options.length > 0 ?
             <BookShelfChanger
               options={this.props.options}
               defaultValue={this.props.shelf}

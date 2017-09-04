@@ -53,33 +53,38 @@ class BooksApp extends React.Component {
       this.setState({ books })
     })
   }
+  reorganizeBooksByShelves = shelves => {
+    /* ASSUMPTION: Only one user uses this application at a time.  With concurrent users I would consider web sockets or else refreshing the entire data set after each change just to be sure the data doesn't get stale */
+    // invert the keys returned by BooksAPI.update() so that they can be applied to the prior state.books values by book.id
+    let bookUpdates = {};
+    for(const [shelfId, bookIds] of Object.entries(shelves)) {
+      for(const bookId of bookIds) {
+        bookUpdates[bookId] = shelfId;
+      }
+    }
+    this.setState(state => {
+      /* HELP! Can you please explain a way to refactor the code below?  I'm still fairly new to ES6 so I struggled with conciseness.  Thank you! */
+      state.books = state.books.map(book => {
+        if (bookUpdates.hasOwnProperty(book.id)) {
+          book.shelf = bookUpdates[book.id];
+        }
+        return book;
+      })
+      return state;
+    })
+  }
   moveBookToAnotherShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((shelves) => {
-      /* ASSUMPTION: Only one user uses this application at a time.  With concurrent users I would consider web sockets or else refreshing the entire data set after each change just to be sure the data doesn't get stale */
-      // invert the keys returned by BooksAPI.update() so that they can be applied to the prior state.books values by book.id
-      let bookUpdates = {};
-      for(const [shelfId, bookIds] of Object.entries(shelves)) {
-        for(const bookId of bookIds) {
-          bookUpdates[bookId] = shelfId;
-        }
-      }
-      this.setState(state => {
-        /* HELP! Can you please explain a way to refactor the code below?  I'm still fairly new to ES6 so I struggled with conciseness.  Thank you! */
-        state.books = state.books.map(book => {
-          if (bookUpdates.hasOwnProperty(book.id)) {
-            book.shelf = bookUpdates[book.id];
-          }
-          return book;
-        })
-        return state;
-      })
-    })
+      this.reorganizeBooksByShelves(shelves);
+    });
   }
   findBooksByQuery = query => {
     if (query === '') {
       this.setState({ booksByQuery: [] });
     } else {
+      console.log('query: ' + query);
       BooksAPI.search(query, 20).then((res) => {
+        console.log(res);
         if (res.hasOwnProperty('error')){
           this.setState({ booksByQuery: [] })
         } else {
@@ -89,7 +94,12 @@ class BooksApp extends React.Component {
     }
   }
   addBookToShelf = (book, shelf) => {
-
+    BooksAPI.update(book, shelf).then((shelves) => {
+      this.setState(state => ({
+        books: state.books.concat([ book ])
+      }))
+      this.reorganizeBooksByShelves(shelves);
+    })
   }
 
   render() {

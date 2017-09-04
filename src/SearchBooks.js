@@ -17,11 +17,12 @@ class SearchBooks extends React.Component {
     query: ''
   }
   updateQuery = (query) => {
-    if (this.hasOwnProperty('waitBeforeSearchID')) {
-      clearInterval(this.waitBeforeSearchID);
-    }
-    this.setState({ query: query.trim() });
-    this.waitBeforeSearchID = setTimeout(() => this.props.findBooksByQuery(this.state.query), 500);
+    this.setState({ query: query.trim() }, () => {
+      if (this.hasOwnProperty('waitBeforeSearchID')) {
+        clearInterval(this.waitBeforeSearchID);
+      }
+      this.waitBeforeSearchID = setTimeout(() => this.props.findBooksByQuery(this.state.query), 500);
+    });
   }
 
   render() {
@@ -51,7 +52,7 @@ class SearchBooks extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.booksByQuery && this.props.booksByQuery.length > 0 ?
+            {this.props.booksByQuery && (this.props.booksByQuery.length > 0 ?
               this.props.booksByQuery.map((data, key) => (
                 <li key={key}>
                   <Book
@@ -64,11 +65,15 @@ class SearchBooks extends React.Component {
                     id={data.id}
                     title={data.title}
                     authors={data.authors}
-                    thumbnail={data.imageLinks.thumbnail}
+                    imageLinks={data.imageLinks}
                     moveBookToAnotherShelf={this.props.addBookToShelf}
                   />
                 </li>
-              )) : ''
+              )) : <div>
+                reactnd-project-myreads-starter/SEARCH_TERMS.md - limited search terms include:<br /><br />
+                Android, Art, Artificial Intelligence, Astronomy, Austen, Baseball, Basketball, Bhagat, Biography, Brief, Business, Camus, Cervantes, Christie, Classics, Comics, Cook, Cricket, Cycling, Desai, Design, Development, Digital Marketing, Drama, Drawing, Dumas, Education, Everything, Fantasy, Film, Finance, First, Fitness, Football, Future, Games, Gandhi, Homer, Horror, Hugo, Ibsen, Journey, Kafka, King, Lahiri, Larsson, Learn, Literary Fiction, Make, Manage, Marquez, Money, Mystery, Negotiate, Painting, Philosophy, Photography, Poetry, Production, Programming, React, Redux, River, Robotics, Rowling, Satire, Science Fiction, Shakespeare, Singh, Swimming, Tale, Thrun, Time, Tolstoy, Travel, Ultimate, Virtual Reality, Web Development, iOS
+              </div>
+              )
             }
           </ol>
         </div>
