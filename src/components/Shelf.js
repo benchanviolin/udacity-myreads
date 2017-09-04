@@ -23,6 +23,7 @@ class Shelf extends React.Component {
               this.props.books.map((data, key) => (
                 <li key={key}>
                   <Book
+                    showShelfChanger={true}
                     shelf={this.props.id}
                     book={data}
                     options={this.props.options}

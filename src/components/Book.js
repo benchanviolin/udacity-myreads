@@ -8,6 +8,8 @@ class Book extends React.Component {
   */
 
   static propTypes = {
+    showShelfChanger: PropTypes.bool,
+    showBookAlreadyOnShelf: PropTypes.bool,
     shelf: PropTypes.string,
     book: PropTypes.object,
     moveBookToAnotherShelf: PropTypes.func,
@@ -31,15 +33,17 @@ class Book extends React.Component {
               backgroundImage: this.props.imageLinks && this.props.imageLinks.hasOwnProperty('thumbnail') ? 'url("' + this.props.imageLinks.thumbnail + '")' : ''
             }
           }></div>
-          {this.props.shelf && this.props.shelf !== '' && this.props.options && this.props.options.length > 0 ?
+          {this.props.showShelfChanger && (
             <BookShelfChanger
               options={this.props.options}
               defaultValue={this.props.shelf}
               book={this.props.book}
               moveBookToAnotherShelf={this.props.moveBookToAnotherShelf}
             />
-            : ''
-          }
+          )}
+          {this.props.showBookAlreadyOnShelf && !this.props.showShelfChanger && (
+            <div className="book-already-on-shelf" />
+          )}
         </div>
         <div className="book-title">{this.props.title}</div>
         <div className="book-authors">{this.props.authors?this.props.authors.join(', '):''}</div>

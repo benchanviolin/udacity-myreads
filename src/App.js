@@ -79,19 +79,15 @@ class BooksApp extends React.Component {
     });
   }
   findBooksByQuery = query => {
-    if (query === '') {
-      this.setState({ booksByQuery: [] });
-    } else {
-      console.log('query: ' + query);
-      BooksAPI.search(query, 20).then((res) => {
-        console.log(res);
-        if (res.hasOwnProperty('error')){
-          this.setState({ booksByQuery: [] })
-        } else {
-          this.setState({ booksByQuery: res })
-        }
-      })
-    }
+    console.log('query: ' + query);
+    BooksAPI.search(query, 20).then((res) => {
+      console.log(res);
+      if (res.hasOwnProperty('error')){
+        this.setState({ booksByQuery: [] })
+      } else {
+        this.setState({ booksByQuery: res })
+      }
+    });
   }
   addBookToShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((shelves) => {
@@ -99,7 +95,12 @@ class BooksApp extends React.Component {
         books: state.books.concat([ book ])
       }))
       this.reorganizeBooksByShelves(shelves);
-    })
+    });
+  }
+  clearSearch = () => {
+    this.setState({
+      booksByQuery: []
+    });
   }
 
   render() {
@@ -121,12 +122,14 @@ class BooksApp extends React.Component {
         )}/>
       <Route path='/search-books' render={() => (
           <SearchBooks
+            books={this.state.books}
             booksByQuery={this.state.booksByQuery}
             options={this.state.options}
             bookWidth={style.bookWidth}
             bookHeight={style.bookHeight}
             findBooksByQuery={this.findBooksByQuery}
             addBookToShelf={this.addBookToShelf}
+            clearSearch={this.clearSearch}
           />
         )}/>
       </div>
